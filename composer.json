@@ -1,0 +1,24 @@
+{
+    "name": "montesjmm/resize-and-watermark",
+    "description": "",
+    "authors": [
+        {
+            "name": "Montes",
+            "email": "javier@montesjmm.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.*",
+        "imagine/Imagine" : ">=0.4.0"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Montesjmm\\ResizeAndWatermark\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
