@@ -1,6 +1,7 @@
 <?php namespace Montesjmm\ResizeAndWatermark;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\AliasLoader;
 
 class ResizeAndWatermarkServiceProvider extends ServiceProvider {
 
@@ -19,6 +20,10 @@ class ResizeAndWatermarkServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('montesjmm/resize-and-watermark');
+
+        AliasLoader::getInstance()->alias(
+			'ResizeWatermark',
+			'Montesjmm\ResizeAndWatermark\ResizeAndWatermark');
 	}
 
 	/**
