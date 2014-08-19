@@ -26,7 +26,7 @@ class RWPicture extends Model {
     {
         $url = $this->url($size);
 
-        return '<img class="img-thumbnail" title="' . $this->review->shop->url . '" alt="'.$this->review->shop->url.'" src="' . $url . '">';
+        return '<img class="img-thumbnail" src="' . $url . '">';
     }
 
 }
