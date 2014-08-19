@@ -34,31 +34,31 @@ class ResizeAndWatermark {
 		}
 	}
 
-    public function store($inputFile, $user = null, $slug = 'picture')
-    {
+	public function store($inputFile, $user = null, $slug = 'picture')
+	{
 		$this->file = new RWFile($inputFile, $slug);
 
-        if ($this->generateSizes(true)) {
+		if ($this->generateSizes(true)) {
 
-            $picture           = new RWPicture;
-            $picture->filename = $this->file->getFilenameWithoutExtension();
+			$picture           = new RWPicture;
+			$picture->filename = $this->file->getFilenameWithoutExtension();
 
-            if ($user) {
+			if ($user) {
 				$picture->user_id = $user->id;
 			}
 
-            $picture->save();
+			$picture->save();
 
-            return $picture;
-        }
-    }
+			return $picture;
+		}
+	}
 
-    protected function generateSizes($applyWatermark = false)
-    {
+	protected function generateSizes($applyWatermark = false)
+	{
 		$filenameWithoutExtension = $this->file->getFilenameWithoutExtension();
 		$privateFullFilename      = $this->file->getPrivateFullFilename();
 
-        $imagine = new Imagine;
+		$imagine = new Imagine;
 
 		$picturesSizes = RWPicturesize::all();
 
@@ -75,25 +75,25 @@ class ResizeAndWatermark {
 					$mode = ImageInterface::THUMBNAIL_INSET;
 			}
 
-            $image     = $imagine->open($privateFullFilename);
-            $imageSize = new Box($pictureSize->width, $pictureSize->height);
-            $image     = $image->thumbnail($imageSize, $mode);
+			$image     = $imagine->open($privateFullFilename);
+			$imageSize = new Box($pictureSize->width, $pictureSize->height);
+			$image     = $image->thumbnail($imageSize, $mode);
 			$imageSize = $image->getSize();
 
-            if ($applyWatermark) {
-                $this->applyWatermarks($image, $imageSize);
-            }
+			if ($applyWatermark) {
+				$this->applyWatermarks($image, $imageSize);
+			}
 
-            $image->save($this->file->getPaths()['public'] . $filenameWithoutExtension . '_' . $pictureSize->slug . '.jpg');
-        }
+			$image->save($this->file->getPaths()['public'] . $filenameWithoutExtension . '_' . $pictureSize->slug . '.jpg');
+		}
 
-        return empty($image) ? false : $image;
-    }
+		return empty($image) ? false : $image;
+	}
 
-    protected function applyWatermarks($image, $imageSize)
-    {
-        if ($imageSize->getWidth() > 200 &&
-            $imageSize->getHeight() > 200) {
+	protected function applyWatermarks($image, $imageSize)
+	{
+		if ($imageSize->getWidth() > 200 &&
+			$imageSize->getHeight() > 200) {
 
 			if ($this->transparentWatermarkFile) {
 				$this->applyTransparentWatermark($image, $imageSize);
@@ -102,8 +102,8 @@ class ResizeAndWatermark {
 			if ($this->noTransparentWatermarkFile) {
 				$this->applyNoTransparentWatermark($image, $imageSize);
 			}
-        }
-    }
+		}
+	}
 
 	protected function applyTransparentWatermark($image, $imageSize)
 	{
