@@ -1,12 +1,23 @@
 {
     "name": "montesjmm/resize-and-watermark",
+	"type": "library",
     "description": "",
+	"keywords": ["resize","watermark","thumbnail","picture resize","picture thumbnail"],
+	"homepage": "https://github.com/montes/resize-and-watermark",
+	"license": "MIT",
+	"version": "0.1.0",
     "authors": [
         {
             "name": "Montes",
-            "email": "javier@montesjmm.com"
+            "email": "javier@montesjmm.com",
+			"homepage": "http://montesjmm.com",
+			"role": "Developer"
         }
     ],
+	"support": {
+		"email": "javier@montesjmm.com",
+		"source": "https://github.com/montes/resize-and-watermark"
+	},
     "require": {
         "php": ">=5.4.0",
         "illuminate/support": "~4",
