@@ -1,7 +1,7 @@
 {
     "name": "montesjmm/resize-and-watermark",
 	"type": "library",
-    "description": "",
+    "description": "Resize and Watermark for Laravel resizes and watermarks your pictures easily",
 	"keywords": ["resize","watermark","thumbnail","picture resize","picture thumbnail"],
 	"homepage": "https://github.com/montes/resize-and-watermark",
 	"license": "MIT",
