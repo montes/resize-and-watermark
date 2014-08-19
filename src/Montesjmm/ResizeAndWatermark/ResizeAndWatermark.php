@@ -34,7 +34,7 @@ class ResizeAndWatermark {
 		}
 	}
 
-    public function store($inputFile, User $user = null, $slug = 'picture')
+    public function store($inputFile, $user = null, $slug = 'picture')
     {
 		$this->file = new RWFile($inputFile, $slug);
 
@@ -59,11 +59,22 @@ class ResizeAndWatermark {
 		$privateFullFilename      = $this->file->getPrivateFullFilename();
 
         $imagine = new Imagine;
-        $mode    = ImageInterface::THUMBNAIL_OUTBOUND;
 
 		$picturesSizes = RWPicturesize::all();
 
 		foreach ($picturesSizes as $pictureSize) {
+
+			switch ($pictureSize->mode) {
+				case 'inset':
+					$mode = ImageInterface::THUMBNAIL_INSET;
+					break;
+				case 'outbound':
+					$mode = ImageInterface::THUMBNAIL_OUTBOUND;
+					break;
+				default:
+					$mode = ImageInterface::THUMBNAIL_INSET;
+			}
+
             $image     = $imagine->open($privateFullFilename);
             $imageSize = new Box($pictureSize->width, $pictureSize->height);
             $image     = $image->thumbnail($imageSize, $mode);

@@ -1,6 +1,7 @@
 <?php namespace Montesjmm\ResizeAndWatermark\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\URL;
 
 class RWPicture extends Model {
 
@@ -18,7 +19,7 @@ class RWPicture extends Model {
 
         $url = '/uploads/' . $year . '/' . $month . '/' . $this->filename . '_' . $size . '.jpg';
 
-        return $url;
+        return URL::to($url);
     }
 
     public function html($size='big')
