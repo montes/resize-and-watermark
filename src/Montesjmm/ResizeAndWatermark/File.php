@@ -30,7 +30,9 @@ class File {
 		$publicUploadPath  = base_path() . '/public/uploads/';
 		$privateUploadPath = base_path() . '/private-uploads/';
 
-		IFile::exists($publicUploadPath . $year . '/' . $month)  || IFile::makeDirectory($publicUploadPath . $year . '/' . $month);
+		IFile::exists($publicUploadPath  . $year)                || IFile::makeDirectory($publicUploadPath  . $year);
+		IFile::exists($publicUploadPath  . $year . '/' . $month) || IFile::makeDirectory($publicUploadPath  . $year . '/' . $month);
+		IFile::exists($privateUploadPath . $year)                || IFile::makeDirectory($privateUploadPath . $year);
 		IFile::exists($privateUploadPath . $year . '/' . $month) || IFile::makeDirectory($privateUploadPath . $year . '/' . $month);
 
 		return [
