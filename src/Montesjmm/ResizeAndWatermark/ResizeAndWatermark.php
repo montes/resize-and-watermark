@@ -1,8 +1,8 @@
 <?php namespace Montesjmm\ResizeAndWatermark;
 
-use Montesjmm\ResizeAndWatermark\Models\RWPicturesize;
-use Montesjmm\ResizeAndWatermark\Models\RWPicture;
-use Montesjmm\ResizeAndWatermark\File as RWFile;
+use Montesjmm\ResizeAndWatermark\Models\RwPictureSize;
+use Montesjmm\ResizeAndWatermark\Models\RwPicture;
+use Montesjmm\ResizeAndWatermark\File as RwFile;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\User;
 use Exception;
@@ -36,11 +36,11 @@ class ResizeAndWatermark {
 
 	public function store($inputFile, $user = null, $slug = 'picture')
 	{
-		$this->file = new RWFile($inputFile, $slug);
+		$this->file = new RwFile($inputFile, $slug);
 
 		if ($this->generateSizes(true)) {
 
-			$picture           = new RWPicture;
+			$picture           = new RwPicture;
 			$picture->filename = $this->file->getFilenameWithoutExtension();
 
 			if ($user) {
@@ -60,7 +60,7 @@ class ResizeAndWatermark {
 
 		$imagine = new Imagine;
 
-		$picturesSizes = RWPicturesize::all();
+		$picturesSizes = RwPictureSize::all();
 
 		foreach ($picturesSizes as $pictureSize) {
 

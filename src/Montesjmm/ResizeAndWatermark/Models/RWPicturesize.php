@@ -2,8 +2,10 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class RWPicturesize extends Model {
+class RwPictureSize extends Model {
 
-	protected $table = 'rwpictures_sizes';
+	protected $table = 'rw_pictures_sizes';
+
+	protected $fillable = array('name', 'slug', 'width', 'height', 'mode');
 
 }

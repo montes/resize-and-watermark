@@ -1,35 +1,36 @@
 {
-    "name": "montesjmm/resize-and-watermark",
+	"name": "montesjmm/resize-and-watermark",
 	"type": "library",
-    "description": "Resize and Watermark for Laravel resizes and watermarks your pictures easily",
+	"description": "Resize and Watermark for Laravel resizes and watermarks your pictures easily",
 	"keywords": ["resize","watermark","thumbnail","picture resize","picture thumbnail"],
 	"homepage": "https://github.com/montes/resize-and-watermark",
 	"license": "MIT",
 	"version": "0.1.0",
-    "authors": [
-        {
-            "name": "Montes",
-            "email": "javier@montesjmm.com",
+	"authors": [
+		{
+			"name": "Montes",
+			"email": "javier@montesjmm.com",
 			"homepage": "http://montesjmm.com",
 			"role": "Developer"
-        }
-    ],
+		}
+	],
 	"support": {
 		"email": "javier@montesjmm.com",
 		"source": "https://github.com/montes/resize-and-watermark"
 	},
-    "require": {
-        "php": ">=5.4.0",
-        "illuminate/support": "~4",
-        "imagine/Imagine" : ">=0.4.0"
-    },
-    "autoload": {
-        "classmap": [
-            "src/migrations"
-        ],
-        "psr-0": {
-            "Montesjmm\\ResizeAndWatermark\\": "src/"
-        }
-    },
-    "minimum-stability": "dev"
+	"require": {
+		"php": ">=5.4.0",
+		"illuminate/support": "~4",
+		"imagine/Imagine" : ">=0.4.0"
+	},
+	"autoload": {
+		"classmap": [
+			"src/migrations",
+			"src/database/seeds"
+		],
+		"psr-0": {
+			"Montesjmm\\ResizeAndWatermark\\": "src/"
+		}
+	},
+	"minimum-stability": "dev"
 }

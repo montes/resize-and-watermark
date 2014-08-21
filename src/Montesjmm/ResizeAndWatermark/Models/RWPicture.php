@@ -3,9 +3,11 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;
 
-class RWPicture extends Model {
+class RwPicture extends Model {
 
-	protected $table = 'rwpictures';
+	protected $table = 'rw_pictures';
+
+	protected $fillable = array('user_id', 'filename', 'token');
 
 	public function user()
 	{
