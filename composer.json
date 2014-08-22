@@ -5,7 +5,7 @@
 	"keywords": ["resize","watermark","thumbnail","picture resize","picture thumbnail"],
 	"homepage": "https://github.com/montes/resize-and-watermark",
 	"license": "MIT",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"authors": [
 		{
 			"name": "Montes",
@@ -26,7 +26,7 @@
 	"autoload": {
 		"classmap": [
 			"src/migrations",
-			"src/database/seeds"
+			"src/seeds"
 		],
 		"psr-0": {
 			"Montesjmm\\ResizeAndWatermark\\": "src/"
