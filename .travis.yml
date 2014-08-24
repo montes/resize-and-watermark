@@ -7,7 +7,7 @@ php:
   - hhvm
 
 before_script:
-  - composer self-udpate
+  - composer self-update
   - composer install --prefer-source --no-interaction --dev
 
 script:
