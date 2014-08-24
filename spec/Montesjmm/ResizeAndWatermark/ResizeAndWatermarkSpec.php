@@ -2,7 +2,7 @@
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Illuminate\Config\Repository as Config;
+use Illuminate\Contracts\Config\Repository as Config;
 
 class ResizeAndWatermarkSpec extends ObjectBehavior {
 

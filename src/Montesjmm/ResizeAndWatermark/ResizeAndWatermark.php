@@ -3,7 +3,7 @@
 use Montesjmm\ResizeAndWatermark\Models\RwPictureSize;
 use Montesjmm\ResizeAndWatermark\Models\RwPicture;
 use Montesjmm\ResizeAndWatermark\File as RwFile;
-use Illuminate\Config\Repository as Config;
+use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Support\Facades\User;
 use Imagine\Gd\Imagine;
 use Imagine\Image\ImageInterface;
