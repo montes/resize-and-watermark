@@ -18,6 +18,9 @@
 		"email": "javier@montesjmm.com",
 		"source": "https://github.com/montes/resize-and-watermark"
 	},
+	"require-dev": {
+		"phpspec/phpspec": "~2.0"
+	},
 	"require": {
 		"php": ">=5.4.0",
 		"illuminate/support": "~4",

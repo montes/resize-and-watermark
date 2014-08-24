@@ -3,9 +3,8 @@
 use Montesjmm\ResizeAndWatermark\Models\RwPictureSize;
 use Montesjmm\ResizeAndWatermark\Models\RwPicture;
 use Montesjmm\ResizeAndWatermark\File as RwFile;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Config\Repository as Config;
 use Illuminate\Support\Facades\User;
-use Exception;
 use Imagine\Gd\Imagine;
 use Imagine\Image\ImageInterface;
 use Imagine\Image\Box;
@@ -13,25 +12,39 @@ use Imagine\Image\Point;
 
 class ResizeAndWatermark {
 
+	protected $config;
+
 	protected $file;
 
 	protected $transparentWatermarkFile;
 
 	protected $noTransparentWatermarkFile;
 
-	public function __construct()
+	public function __construct(Config $config)
 	{
-		if (Config::get('resize-and-watermark::transparentWatermarkFile')) {
-			$this->transparentWatermarkFile = base_path() . Config::get('resize-and-watermark::transparentWatermarkFile');
+		$this->config = $config;
+
+		$watermarks                       = $this->setupWatermarksFiles();
+		$this->transparentWatermarkFile   = $watermarks['transparentWatermarkFile'];
+		$this->noTransparentWatermarkFile = $watermarks['noTransparentWatermarkFile'];
+	}
+
+	public function setupWatermarksFiles()
+	{
+		if ($this->config->get('resize-and-watermark::transparentWatermarkFile')) {
+			$transparentWatermarkFile = base_path() . $this->config->get('resize-and-watermark::transparentWatermarkFile');
 		} else {
-			$this->transparentWatermarkFile = false;
+			$transparentWatermarkFile = false;
 		}
 
-		if (Config::get('resize-and-watermark::noTransparentWatermarkFile')) {
-			$this->noTransparentWatermarkFile = base_path() . Config::get('resize-and-watermark::noTransparentWatermarkFile');
+		if ($this->config->get('resize-and-watermark::noTransparentWatermarkFile')) {
+			$noTransparentWatermarkFile = base_path() . $this->config->get('resize-and-watermark::noTransparentWatermarkFile');
 		} else {
-			$this->noTransparentWatermarkFile = false;
+			$noTransparentWatermarkFile = false;
 		}
+
+		return ['transparentWatermarkFile' => $transparentWatermarkFile,
+			'noTransparentWatermarkFile' => $noTransparentWatermarkFile];
 	}
 
 	public function store($inputFile, $user = null, $slug = 'picture')
