@@ -3,6 +3,7 @@
 namespace Montesjmm\ResizeAndWatermark;
 
 use Illuminate\Support\Facades\User;
+use Illuminate\Contracts\Config\Repository as Config;
 
 use Montesjmm\ResizeAndWatermark\Models\RwPictureSize;
 use Montesjmm\ResizeAndWatermark\Models\RwPicture;
@@ -24,7 +25,7 @@ class ResizeAndWatermark
 
     protected $noTransparentWatermarkFile;
 
-    public function __construct(\Illuminate\Config\Repository $config)
+    public function __construct(Config $config)
     {
         $this->config = $config;
 
