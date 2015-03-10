@@ -5,7 +5,7 @@
 	"keywords": ["resize","watermark","thumbnail","picture resize","picture thumbnail"],
 	"homepage": "https://github.com/montes/resize-and-watermark",
 	"license": "MIT",
-	"version": "0.1.2",
+	"version": "0.2.1",
 	"authors": [
 		{
 			"name": "Montes",
@@ -18,21 +18,16 @@
 		"email": "javier@montesjmm.com",
 		"source": "https://github.com/montes/resize-and-watermark"
 	},
-	"require-dev": {
-		"phpspec/phpspec": "~2.0",
-		"illuminate/support": "~4"
-	},
 	"require": {
 		"php": ">=5.4.0",
-		"illuminate/support": "~4",
+		"illuminate/support": "~5",
 		"imagine/Imagine" : ">=0.4.0"
 	},
+	"require-dev": {
+		"phpspec/phpspec": "~2.1"
+	},
 	"autoload": {
-		"classmap": [
-			"src/migrations",
-			"src/seeds"
-		],
-		"psr-0": {
+		"psr-4": {
 			"Montesjmm\\ResizeAndWatermark\\": "src/"
 		}
 	},

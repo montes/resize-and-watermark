@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Montesjmm\ResizeAndWatermark
+        psr4_prefix: Montesjmm\ResizeAndWatermark
+        src_path: src
