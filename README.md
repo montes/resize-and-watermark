@@ -2,8 +2,6 @@
 
 #Resize And Watermark
 
-**Unfinished documentation and poorly tested! Use at your own risk!**
-
 ##Laravel 5 Installation
 
 1. Add to your composer require: "montesjmm/resize-and-watermark": "~0.2"
@@ -17,12 +15,50 @@
 ## Use
 
 ```php
-$resizer = new \Montesjmm\ResizeAndWatermark\ResizeAndWatermark();
-$file = \Input::file()['file'];
+<?php namespace App\Http\Controllers;
 
-$picture = $resizer->store($file);
+use Illuminate\Config\Repository as Config;
+
+class WelcomeController extends Controller {
+
+    public function __construct()
+    {
+        $this->middleware('guest');
+    }
+
+    public function index()
+    {
+        $resizer = new \Montesjmm\ResizeAndWatermark\ResizeAndWatermark(new Config);
+        $file = \Input::file()['file'];
+
+        $picture = $resizer->store($file);
+
+        dd($picture);
+    }
+
+}
 ```
-This will copy original file to "laravel/private-uploads" and generate sizes (with watermark if configured) to 
-"laravel/public/uploads/YYYY/MM/"
+
+This will copy uploaded picture to "laravel/private-uploads" and generate sizes to "laravel/public/uploads/YYYY/MM/" and
+add picture data to "rw_pictures" database table.
+
+"laravel/private-uploads" and "laravel/public/uploads" must be writable.
+
+## Test!
+
+You can test it with [postman](https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm):
+
+### 1. add post method to welcome route:<br>
+```php 
+Route::post('/', 'WelcomeController@index'); 
+```
+
+### 2. disable "VerifyCsrfToken", commenting this line at "app/Http/Kernel.php"<br>
+```php 
+//		'App\Http\Middleware\VerifyCsrfToken', 
+```
+
+### 3. test with [postman](https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm)
+![Postman test](http://montesjmm.com/wp-content/uploads/2015/03/Screen-Shot-2015-03-25-at-23.54.45.png)
 
 
