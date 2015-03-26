@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/montes/resize-and-watermark.svg)](https://travis-ci.org/montes/resize-and-watermark)
 
 #Resize And Watermark
+Easily automate picture **upload**, generating of multiple **sizes** and **watermarking** if needed.
 
 ##Laravel 5 Installation
 
@@ -12,53 +13,71 @@
 6. composer dump-autoload -o
 7. php artisan db:seed --class=RwPicturesSizesTableSeeder
 
-## Use
+## Example
 
+####app/Http/routes.php
+```php
+Route::get('/', 'WelcomeController@index');
+Route::post('/', 'WelcomeController@index');
+```
+####app/Http/controllers/WelcomeController.php
 ```php
 <?php namespace App\Http\Controllers;
 
 use Illuminate\Config\Repository as Config;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Input;
+use Montesjmm\ResizeAndWatermark\ResizeAndWatermark;
 
 class WelcomeController extends Controller {
 
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
+	public function index()
+	{
+		if (Request::isMethod('post')) {
+			$resizer = new ResizeAndWatermark(new Config);
 
-    public function index()
-    {
-        $resizer = new \Montesjmm\ResizeAndWatermark\ResizeAndWatermark(new Config);
-        $file = \Input::file()['file'];
+			$file = Input::file()['file'];
 
-        $picture = $resizer->store($file);
+			$picture = $resizer->store($file);
 
-        dd($picture);
-    }
+			return '<img src="' . $picture->url('small') . '">';
+		}
 
+		return view('welcome');
+	}
 }
 ```
-
-This will copy uploaded picture to "laravel/private-uploads" and generate sizes to "laravel/public/uploads/YYYY/MM/" and
-add picture data to "rw_pictures" database table.
-
-"laravel/private-uploads" and "laravel/public/uploads" must be writable.
-
-## Test!
-
-You can test it with [postman](https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm):
-
-### 1. add post method to welcome route:<br>
-```php 
-Route::post('/', 'WelcomeController@index'); 
+####resources/views/welcome.blade.php
+```html
+<html>
+	<head>
+		<title>Resize And Watermark Test</title>
+	</head>
+	<body>
+		<form method="post" enctype="multipart/form-data">
+			<input type="hidden" name="_token" value="{{{ csrf_token() }}}">
+			<input type="file" name="file">
+			<input type="submit" value="send">
+		</form>
+	</body>
+</html>
 ```
 
-### 2. disable "VerifyCsrfToken", commenting this line at "app/Http/Kernel.php"<br>
-```php 
-//		'App\Http\Middleware\VerifyCsrfToken', 
+When you upload a picture this will be the result in disk:
+```bash
+private-uploads/2015/03/20150326-picture_orig.jpg
+public/uploads/2015/03/20150326-picture_bigger.jpg
+public/uploads/2015/03/20150326-picture_big.jpg
+public/uploads/2015/03/20150326-picture_medbig.jpg
+public/uploads/2015/03/20150326-picture_medium.jpg
+public/uploads/2015/03/20150326-picture_small.jpg
+public/uploads/2015/03/20150326-picture_thumb.jpg
+public/uploads/2015/03/20150326-picture_tiny.jpg
 ```
 
-### 3. test with [postman](https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm)
-![Postman test](http://montesjmm.com/wp-content/uploads/2015/03/Screen-Shot-2015-03-25-at-23.54.45.png)
+**"laravel/private-uploads" and "laravel/public/uploads" must be writable.**
 
+
+## Config
+at _config/resize-and-watermark.php_ you can setup the routes for the watermarking files if you want watermarking.
 
