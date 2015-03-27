@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/montes/resize-and-watermark.svg)](https://travis-ci.org/montes/resize-and-watermark)
 
-#Resize And Watermark
+#Resize And Watermark (images)
 Easily automate picture **upload**, generating of multiple **sizes** and **watermarking** if needed.
 
 ##Laravel 5 Installation
@@ -13,7 +13,28 @@ Easily automate picture **upload**, generating of multiple **sizes** and **water
 6. composer dump-autoload -o
 7. php artisan db:seed --class=RwPicturesSizesTableSeeder
 
-## Example
+##Examples
+
+####Download and generate sizes from image url
+```php
+$resizer = new ResizeAndWatermark(new Config);
+$picture = $resizer->store('http://example.com/image.jpg');
+
+echo $picture->html('small'); // <img src="http://mysite.com/uploads/2015/03/20150327-picture_small.jpg">
+
+echo $picture->html('big'); // <img src="http://laravel5.app/uploads/2015/03/20150327-picture_big.jpg">
+```
+
+####Generate sizes of form uploaded image
+```php
+$resizer = new ResizeAndWatermark(new Config);
+$file = Input::file()['file'];
+$picture = $resizer->store($file);
+
+echo $picture->html('small'); // <img src="http://mysite.com/uploads/2015/03/20150327-picture_small.jpg">
+```
+
+## Example App
 
 ####app/Http/routes.php
 ```php
