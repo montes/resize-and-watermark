@@ -3,21 +3,22 @@
 #Resize And Watermark (images)
 Easily automate picture **upload**, generating of multiple **sizes** and **watermarking** if needed.
 
-##Laravel 5 Installation
+##Laravel 5.2 Installation
 
-1. Add to your composer require: "montesjmm/resize-and-watermark": "~0.2"
-2. Add service provider to your config/app.php: 'Montesjmm\ResizeAndWatermark\ResizeAndWatermarkServiceProvider',
-3. composer update
-4. php artisan vendor:publish
-5. php artisan migrate
-6. composer dump-autoload -o
-7. php artisan db:seed --class=RwPicturesSizesTableSeeder
+1. Add to your composer require: "montesjmm/resize-and-watermark": "~0.3"
+2. Add service provider to your config/app.php: Montesjmm\ResizeAndWatermark\ResizeAndWatermarkServiceProvider::class,
+3. Add alias to your config/app.php aliases: 'ResizeAndWatermark' => Montesjmm\ResizeAndWatermark\ResizeAndWatermark::class,
+4. composer update
+5. php artisan vendor:publish
+6. php artisan migrate
+7. composer dump-autoload -o
+8. php artisan db:seed --class=RwPicturesSizesTableSeeder
 
 ##Examples
 
 ####Download and generate sizes from image url
 ```php
-$resizer = new ResizeAndWatermark(new Config);
+$resizer = new ResizeAndWatermark;
 $picture = $resizer->store('http://example.com/image.jpg');
 
 echo $picture->html('small'); // <img src="http://mysite.com/uploads/2015/03/20150327-picture_small.jpg">
@@ -27,7 +28,7 @@ echo $picture->html('big'); // <img src="http://laravel5.app/uploads/2015/03/201
 
 ####Generate sizes of form uploaded image
 ```php
-$resizer = new ResizeAndWatermark(new Config);
+$resizer = new ResizeAndWatermark;
 $file = Input::file()['file'];
 $picture = $resizer->store($file);
 
@@ -45,7 +46,6 @@ Route::post('/', 'WelcomeController@index');
 ```php
 <?php namespace App\Http\Controllers;
 
-use Illuminate\Config\Repository as Config;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Input;
 use Montesjmm\ResizeAndWatermark\ResizeAndWatermark;
@@ -55,7 +55,7 @@ class WelcomeController extends Controller {
 	public function index()
 	{
 		if (Request::isMethod('post')) {
-			$resizer = new ResizeAndWatermark(new Config);
+			$resizer = new ResizeAndWatermark;
 
 			$file = Input::file()['file'];
 

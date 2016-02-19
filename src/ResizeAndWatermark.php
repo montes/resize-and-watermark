@@ -3,7 +3,6 @@
 namespace Montesjmm\ResizeAndWatermark;
 
 use Illuminate\Support\Facades\User;
-use Illuminate\Contracts\Config\Repository as Config;
 
 use Montesjmm\ResizeAndWatermark\Models\RwPictureSize;
 use Montesjmm\ResizeAndWatermark\Models\RwPicture;
@@ -16,19 +15,14 @@ use Imagine\Image\Point;
 
 class ResizeAndWatermark
 {
-
-    protected $config;
-
     protected $file;
 
     protected $transparentWatermarkFile;
 
     protected $noTransparentWatermarkFile;
 
-    public function __construct(Config $config)
+    public function __construct()
     {
-        $this->config = $config;
-
         $watermarks                       = $this->setupWatermarksFiles();
         $this->transparentWatermarkFile   = $watermarks['transparentWatermarkFile'];
         $this->noTransparentWatermarkFile = $watermarks['noTransparentWatermarkFile'];
@@ -36,16 +30,16 @@ class ResizeAndWatermark
 
     public function setupWatermarksFiles()
     {
-        if ($this->config->get('resize-and-watermark::transparentWatermarkFile')) {
+        if (config('resize-and-watermark::transparentWatermarkFile')) {
             $transparentWatermarkFile =
-                base_path() . $this->config->get('resize-and-watermark::transparentWatermarkFile');
+                base_path() . config('resize-and-watermark::transparentWatermarkFile');
         } else {
             $transparentWatermarkFile = false;
         }
 
-        if ($this->config->get('resize-and-watermark::noTransparentWatermarkFile')) {
+        if (config('resize-and-watermark::noTransparentWatermarkFile')) {
             $noTransparentWatermarkFile =
-                base_path() . $this->config->get('resize-and-watermark::noTransparentWatermarkFile');
+                base_path() . config('resize-and-watermark::noTransparentWatermarkFile');
         } else {
             $noTransparentWatermarkFile = false;
         }
