@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\File as IFile;
 class File
 {
 
-	const SYMFONY_UPLOADED_FILE_NAMESPACE = 'Symfony\Component\HttpFoundation\File\UploadedFile';
+	const SYMFONY_UPLOADED_FILE_NAMESPACE = 'Illuminate\Http\UploadedFile';
 
 	protected $file;
 
