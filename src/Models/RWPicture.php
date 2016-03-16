@@ -22,7 +22,7 @@ class RwPicture extends Model
 		$year  = date('Y', strtotime($this->created_at));
 		$month = date('m', strtotime($this->created_at));
 
-		$url = '/uploads/' . $year . '/' . $month . '/' . $this->filename . '_' . $size . '.jpg';
+		$url = '/uploads/' . $year . '/' . $month . '/' . rawurlencode($this->filename) . '_' . $size . '.jpg';
 
 		return URL::to($url);
 	}
